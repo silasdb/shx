@@ -13,6 +13,8 @@ shx_require ()
 		vname="shx_${f}_loaded"
 		eval "value=\$$vname"
 		test "$f" = "$value" && continue
+		test -f "$SHX_HOME/shx_$f.sh" \
+		    || shx_fatal "shx: Module \"$f\" not found."
 		. "$SHX_HOME/shx_$f.sh"
 	done
 }
