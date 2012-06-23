@@ -1,6 +1,6 @@
 #!/bin/sh
 
-shx_syscheck_loaded="yes"
+shx_system_loaded="yes"
 
 # Checks if root is running the script. If it is not, outputs an error message
 # and exits.
