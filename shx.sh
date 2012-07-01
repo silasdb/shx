@@ -70,7 +70,7 @@ shx_init ()
 	fi
 
 	# Call main script function.
-	main $args
+	eval "main $args"
 
 	shx_exit 0
 }
