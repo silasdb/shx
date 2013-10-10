@@ -16,8 +16,7 @@ shx_depends ()
 {
 	for f in $@; do
 		if ! which "${f}" > /dev/null 2>&1; then
-			echo "This script needs ${f}. ${f} not found." > \
-			/dev/stderr
+			shx_warn "This script needs ${f}. ${f} not found."
 			return 3
 		fi
 	done
