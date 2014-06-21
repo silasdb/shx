@@ -2,6 +2,8 @@
 #
 # Note: All of them must start with shx_ to not conflict with scripts functions.
 
+set -eu
+
 . "$SHX_HOME/shx_escape.sh"
 . "$SHX_HOME/shx_log.sh"
 
