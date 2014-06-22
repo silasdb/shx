@@ -34,6 +34,7 @@ shx_escape ()
 	shx_priv_add_backslash '?'
 	shx_priv_add_backslash "'"
 	shx_priv_add_backslash '"'
+	shx_priv_add_backslash ';'
 	printf '%s' "$shx_priv_e"
 }
 
