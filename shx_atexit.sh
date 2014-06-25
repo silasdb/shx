@@ -23,7 +23,7 @@ shx_atexit_loaded="yes"
 #    shx_atexit_rm_1: tmp2.txt
 shx_atexit_rm_count=0
 shx_atexit_rm () {
-	eval "shx_atexit_rm_$shx_atexit_rm_count=$1"
+	eval "shx_atexit_rm_$shx_atexit_rm_count=\"$1\""
 	shx_atexit_rm_count=`expr $shx_atexit_rm_count + 1`
 }
 
