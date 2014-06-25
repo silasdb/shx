@@ -32,17 +32,19 @@ shx_atexit_rm () {
 shx_atexit_rm_enqueued_files ()
 {
 	# If there is no enqueued files, return.
-	if [ "$shx_atexit_rm_count" -eq 0 ]; then
-		return
-	fi
+	test  "$shx_atexit_rm_count" -eq 0 && return
 
-	# Remove every enqueued file.
 	local vname
+	local rflag
+	rflag=""
 	shx_atexit_rm_count=`expr $shx_atexit_rm_count - 1`
+	# Remove every enqueued file.
 	for i in `seq 0 $shx_atexit_rm_count`; do
 		vname="\$shx_atexit_rm_$i"
-		eval "rm -rf $vname"
+		test -d "$(eval "echo $vname")" && rflag="r"
+		eval "rm -f$rflag $vname"
 	done
+	shx_atexit_rm_count=0
 }
 
 # Universal trap for INT signals, normally received when the user press Ctrl-C.
