@@ -46,10 +46,3 @@ shx_atexit_rm_enqueued_files ()
 	done
 	shx_atexit_rm_count=0
 }
-
-# Universal trap for INT signals, normally received when the user press Ctrl-C.
-trap shx_priv_trapint INT
-shx_priv_trapint ()
-{
-	shx_exit 130
-}
