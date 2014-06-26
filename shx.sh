@@ -2,7 +2,7 @@
 #
 # Note: All of them must start with shx_ to not conflict with scripts functions.
 
-set -eu
+set -e
 
 . "$SHX_HOME/shx_escape.sh"
 . "$SHX_HOME/shx_log.sh"
@@ -73,6 +73,7 @@ shx_init ()
 		set -x
 	fi
 
+	set -eu
 	# Call main script function.
 	eval "main $args"
 
