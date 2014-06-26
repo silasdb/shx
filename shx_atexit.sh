@@ -35,17 +35,17 @@ shx_atexit_rm_enqueued_files ()
 	test  "$shx_atexit_rm_count" -eq 0 && return
 
 	local vname
-	local path
+	local filepath
 	local rflag
 	rflag=""
 	shx_atexit_rm_count=`expr $shx_atexit_rm_count - 1`
 	# Remove every enqueued file.
 	for i in `seq 0 $shx_atexit_rm_count`; do
 		vname="\$shx_atexit_rm_$i"
-		path="./$(eval "echo $vname")"
-		test -d "$path" && rflag="r"
-		echo "$path"
-		rm -f$rflag "$path"
+		filepath="./$(eval "echo $vname")"
+		test -d "$filepath" && rflag="r"
+		echo "$filepath"
+		rm -f$rflag "$filepath"
 	done
 	shx_atexit_rm_count=0
 }
