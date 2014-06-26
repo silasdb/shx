@@ -11,6 +11,8 @@ shx_require ()
 {
 	local vname
 	local value
+	local old_opts
+	old_opts="$(set +o)"
 	set +u
 	for f in "$@"; do
 		vname="shx_${f}_loaded"
@@ -20,7 +22,7 @@ shx_require ()
 		    || shx_fatal "shx: Module \"$f\" not found."
 		. "$SHX_HOME/shx_$f.sh"
 	done
-	set -u
+	eval "$old_opts" 2>/dev/null
 }
 
 # Initialization function.  This function performs several tasks before
@@ -85,11 +87,13 @@ shx_init ()
 # instead.
 shx_exit () {
 	# Remove any enqueued files.
+	local old_opts
+	old_opts="$(set +o)"
 	set +u
 	if [ "$shx_atexit_loaded" = "yes" ]; then
 		shx_atexit_rm_enqueued_files
 	fi
-	set -u
+	eval "$old_opts" 2>/dev/null
 
 	exit "$1"
 }
