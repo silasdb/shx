@@ -39,10 +39,16 @@ shx_atexit_rm_enqueued_files ()
 	local rflag
 	rflag=""
 	shx_atexit_rm_count=`expr $shx_atexit_rm_count - 1`
-	# Remove every enqueued file.
+	# Remove every enqueued file or directory.
 	for i in `seq 0 $shx_atexit_rm_count`; do
 		vname="\$shx_atexit_rm_$i"
-		filepath="./$(eval "echo $vname")"
+		filepath="$(eval "echo $vname")"
+
+		# If filename starts with dash, prepend "./" so rm later don't
+		# think it is a parameter.
+		(printf '%s' '$filepath' | grep -q '^-') \
+		    && filepath="./$filepath"
+
 		test -d "$filepath" && rflag="r"
 		echo "$filepath"
 		rm -f$rflag "$filepath"
