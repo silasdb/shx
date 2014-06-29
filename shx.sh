@@ -4,7 +4,7 @@
 
 set -e
 
-. "$SHX_HOME/shx_escape.sh"
+. "$SHX_HOME/shx_string.sh"
 . "$SHX_HOME/shx_log.sh"
 
 shx_require ()

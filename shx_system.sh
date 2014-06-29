@@ -7,7 +7,7 @@ shx_system_loaded="yes"
 shx_onlyroot ()
 {
 	if [ `id -u` -ne 0 ]; then
-		echo "Only root can run this script" >&2
+		shx_echo "Only root can run this script" >&2
 		return 2
 	fi
 }

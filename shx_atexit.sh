@@ -42,7 +42,7 @@ shx_atexit_rm_enqueued_files ()
 	# Remove every enqueued file or directory.
 	for i in `seq 0 $shx_atexit_rm_count`; do
 		vname="\$shx_atexit_rm_$i"
-		filepath="$(eval "echo $vname")"
+		filepath="$(eval "shx_echo $vname")"
 
 		# If filename starts with dash, prepend "./" so rm later don't
 		# think it is a parameter.

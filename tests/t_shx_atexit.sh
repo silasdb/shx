@@ -5,6 +5,7 @@ Prog_Name=${0##*/}
 . /usr/share/atf/atf.header.subr
 
 . ../shx_atexit.sh
+. ../shx_string.sh
 
 mocks_file_1='mocks/file with space'
 mocks_file_2='mocks/another file with -a -b -c -d -e -- dashes'
