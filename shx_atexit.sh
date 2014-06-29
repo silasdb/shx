@@ -50,7 +50,6 @@ shx_atexit_rm_enqueued_files ()
 		    && filepath="./$filepath"
 
 		test -d "$filepath" && rflag="r"
-		echo "$filepath"
 		rm -f$rflag "$filepath"
 	done
 	shx_atexit_rm_count=0
