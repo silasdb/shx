@@ -4,6 +4,7 @@ Prog_Name=${0##*/}
 
 . /usr/share/atf/atf.header.subr
 
+. ../shx_io.sh
 . ../shx_string.sh
 
 escape_check ()
