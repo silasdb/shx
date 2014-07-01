@@ -24,7 +24,7 @@ shx_atexit_loaded="yes"
 shx_atexit_rm_count=0
 shx_atexit_rm () {
 	eval "shx_atexit_rm_$shx_atexit_rm_count=\"$1\""
-	shx_atexit_rm_count=`expr $shx_atexit_rm_count + 1`
+	shx_atexit_rm_count=$((shx_atexit_rm_count+1))
 }
 
 # Remove enqueued files, if there is any.  This function is not meant to be
@@ -38,7 +38,7 @@ shx_atexit_rm_enqueued_files ()
 	local filepath
 	local rflag
 	rflag=""
-	shx_atexit_rm_count=`expr $shx_atexit_rm_count - 1`
+	shx_atexit_rm_count=$((shx_atexit_rm_count-1))
 	# Remove every enqueued file or directory.
 	for i in `seq 0 $shx_atexit_rm_count`; do
 		vname="\$shx_atexit_rm_$i"
