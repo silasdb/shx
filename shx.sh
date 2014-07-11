@@ -75,7 +75,6 @@ shx_init ()
 		set -x
 	fi
 
-	set -eu
 	# Call main script function.
 	eval "main $args"
 
