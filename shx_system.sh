@@ -7,7 +7,7 @@ shx_system_loaded="yes"
 shx_onlyroot ()
 {
 	if [ `id -u` -ne 0 ]; then
-		shx_echo "Only root can run this script" >&2
+		shx_echoln "Only root can run this script" >&2
 		return 2
 	fi
 }
@@ -16,7 +16,7 @@ shx_depends ()
 {
 	for f in $@; do
 		if ! which "${f}" > /dev/null 2>&1; then
-			shx_warn "This script needs ${f}. ${f} not found."
+			shx_warnln "This script needs ${f}. ${f} not found."
 			return 3
 		fi
 	done
