@@ -13,6 +13,8 @@ mocks_file_2='mocks/another file with -a -b -c -d -e -- dashes'
 mocks_file_3='mocks/-x -start with dash and have spaces'
 mocks_file_4='mocks/simple_file'
 mocks_file_5='mocks/file with ; semicolon ; echo x'
+mocks_file_6='mocks/file with "doublequote" ; echo x'
+mocks_file_7="mocks/file with 'single quote' ; echo x"
 mocks_files_create ()
 {
 	mkdir -p mocks
@@ -21,6 +23,8 @@ mocks_files_create ()
 	touch "$mocks_file_3"
 	touch "$mocks_file_4"
 	touch "$mocks_file_5"
+	touch "$mocks_file_6"
+	touch "$mocks_file_7"
 }
 mocks_files_all_exist ()
 {
@@ -30,6 +34,8 @@ mocks_files_all_exist ()
 	test -f "$mocks_file_3" || return 1
 	test -f "$mocks_file_4" || return 1
 	test -f "$mocks_file_5" || return 1
+	test -f "$mocks_file_6" || return 1
+	test -f "$mocks_file_7" || return 1
 	return 0
 }
 mocks_files_some_exist ()
@@ -39,6 +45,8 @@ mocks_files_some_exist ()
 	test -f "$mocks_file_3" && return 0
 	test -f "$mocks_file_4" && return 0
 	test -f "$mocks_file_5" && return 0
+	test -f "$mocks_file_6" && return 0
+	test -f "$mocks_file_7" && return 0
 	return 1
 }
 
@@ -98,6 +106,8 @@ rmfiles_body ()
 	shx_atexit_rm "$mocks_file_3"
 	shx_atexit_rm "$mocks_file_4"
 	shx_atexit_rm "$mocks_file_5"
+	shx_atexit_rm "$mocks_file_6"
+	shx_atexit_rm "$mocks_file_7"
 	shx_atexit_rm_enqueued_files
 	mocks_files_all_exist \
 	    && atf_fail "All files still exist after calling shx_atexit_rm_enqueued_files"
