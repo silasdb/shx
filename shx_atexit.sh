@@ -21,6 +21,15 @@ shx_atexit_loaded="yes"
 #
 #    shx_atexit_rm_0: tmp1.txt
 #    shx_atexit_rm_1: tmp2.txt
+#
+# We cannot just implement a shx_mktemp() function that joins mktemp(1) and
+# shx_atexit_rm() because it would be executed in a subshell, like:
+#
+#    myfile="$(shx_mktemp "bla.XXXX")"
+#
+# Since it is executed in a subshell, our control variables would be lost.  The
+# user have to call first mktemp(1) and then shx_atexit_rm().
+
 shx_atexit_rm_count=0
 shx_atexit_rm () {
 	eval "shx_atexit_rm_$shx_atexit_rm_count=\"$1\""
