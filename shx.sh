@@ -97,9 +97,8 @@ shx_exit () {
 	exit "$1"
 }
 
-# Universal trap for INT signals, normally received when the user press Ctrl-C.
-trap shx_priv_trapint INT
-shx_priv_trapint ()
-{
-	shx_exit 130
-}
+# Traps for clear exit
+trap 'shx_exit 129' HUP
+trap 'shx_exit 130' INT
+trap 'shx_exit 131' QUIT
+trap 'shx_exit 143' TERM
