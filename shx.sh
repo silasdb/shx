@@ -60,7 +60,7 @@ shx_init ()
 				debug="yes"
 				;;
 			*)
-				shx_warn "Unknown argument to -!: \"$a\""
+				shx_warnln "Unknown argument to -!: \"$a\""
 				;;
 			esac
 		elif [ $first -eq 1 ]; then
