@@ -64,10 +64,10 @@ shx_init ()
 				;;
 			esac
 		elif [ $first -eq 1 ]; then
-			args="`shx_escape "$a"`"
+			args="$(shx_quote "$a")"
 			first=0
 		else
-			args="$args `shx_escape "$a"`"
+			args="$args $(shx_quote) "$a"`"
 		fi
 	done
 
@@ -78,7 +78,7 @@ shx_init ()
 	# Call main script function.
 	eval "main $args"
 
-	shx_exit 0
+	shx_exit "$?"
 }
 
 # exit wrapper.  Executes a bunch of tasks before exiting the program, including
