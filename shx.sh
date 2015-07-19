@@ -67,7 +67,7 @@ shx_init ()
 			args="$(shx_quote "$a")"
 			first=0
 		else
-			args="$args $(shx_quote) "$a"`"
+			args="$args $(shx_quote "$a")"
 		fi
 	done
 
