@@ -1,12 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env atf-sh
 
-Prog_Name=${0##*/}
-
-. /usr/share/atf/atf.header.subr
-
-. ../shx_atexit.sh
-. ../shx_io.sh
-. ../shx_string.sh
+. "$(pkg-config --variable=prefix shx)"/shx_atexit.sh
+. "$(pkg-config --variable=prefix shx)"/shx_io.sh
+. "$(pkg-config --variable=prefix shx)"/shx_string.sh
 
 mocks_file_1='mocks/file with space'
 mocks_file_2='mocks/another file with -a -b -c -d -e -- dashes'
@@ -113,6 +109,7 @@ rmfiles_body ()
 	    && atf_fail "All files still exist after calling shx_atexit_rm_enqueued_files"
 	mocks_files_some_exist \
 	    && atf_fail "Some files still exist after calling shx_atexit_rm_enqueued_files"
+	atf_pass
 }
 
 atf_test_case rmdirs
@@ -128,10 +125,11 @@ rmdirs_body ()
 	shx_atexit_rm "$mocks_dir_3"
 	shx_atexit_rm "$mocks_dir_4"
 	shx_atexit_rm_enqueued_files
-	mocks_dir_all_exist \
+	mocks_dirs_all_exist \
 	    && atf_fail "All dirs still exist after calling shx_atexit_rm_enqueued_files"
-	mocks_dir_some_exist \
+	mocks_dirs_some_exist \
 	    && atf_fail "Some dirs still exist after calling shx_atexit_rm_enqueued_files"
+	atf_pass
 }
 
 atf_test_case rm_one_file
@@ -151,6 +149,7 @@ rm_one_file_body ()
 	shx_atexit_rm "mocks/onefile"
 	shx_atexit_rm_enqueued_files
 	test -f "mocks/onefile" && atf_fail "mocks/onefile still exists!"
+	atf_pass
 }
 
 atf_init_test_cases ()
@@ -159,7 +158,3 @@ atf_init_test_cases ()
 	atf_add_test_case rmdirs
 	atf_add_test_case rm_one_file
 }
-
-. /usr/share/atf/atf.footer.subr
-
-main "$@"
