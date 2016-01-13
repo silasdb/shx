@@ -36,7 +36,7 @@ shx_md5 ()
 
 shx_filesize ()
 {
-	wc -c "$1" | awk '{ print $1; }'
+	wc -c < "$1"
 	# TODO: wc doesn't work for file it cannot read.  Besides wc, having non
 	# portable "stat" might be a good idea.
 }
