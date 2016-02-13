@@ -27,7 +27,7 @@ md5stdin_check ()
 }
 
 atf_test_case md5
-md5
+md5_head ()
 {
 	atf_set  "descr"  "Test shx_md5 function"
 }
