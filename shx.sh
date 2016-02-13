@@ -3,6 +3,7 @@
 # Note: All of them must start with shx_ to not conflict with scripts functions.
 
 set -e
+set -u
 
 . "$SHX_HOME/shx_string.sh"
 . "$SHX_HOME/shx_log.sh"
