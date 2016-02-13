@@ -32,9 +32,7 @@ shx_atexit_loaded="yes"
 
 shx_atexit_rm_count=0
 shx_atexit_rm () {
-	local file
-	file="$(shx_quote "$1")"
-	eval "shx_atexit_rm_$shx_atexit_rm_count=$file"
+	setvar "shx_atexit_rm_$shx_atexit_rm_count" "$1"
 	shx_atexit_rm_count=$((shx_atexit_rm_count+1))
 }
 
