@@ -49,3 +49,52 @@ shx_fatalln ()
 	shx_exit "$err"
 }
 
+# Print with colors
+#
+# $1 -> Color specs
+# $2 -> The text.
+#
+# Example:
+#
+#     shx_echo_color "FG_BLUE BG_YELLOW BOLD" "color this text"
+shx_echo_color ()
+{
+	printf "$(shx_priv_mount_color_code "$1")"
+	shx_echo "$2"
+	printf $shx_RESET
+}
+
+# Print with colors and a new line.
+#
+# $1 -> Color specs
+# $2 -> The text.
+#
+# Example:
+#
+#     shx_echoln_color "FG_BLUE BG_YELLOW BOLD" "color this text"
+shx_echoln_color ()
+{
+	shx_echo_color "$1" "$2"
+	shx_echoln
+}
+
+
+# Build the color string to tell to the terminal.
+# $1 -> List of color rules.  They are the constant names in shx_consts.sh
+#       without the "shx_" prefix.
+#
+# Example:
+#
+#     shx_priv_mount_color_code "FG_BLUE BG_YELLOW BOLD"
+shx_priv_mount_color_code ()
+{
+	local color=
+	local c
+	for c in $@; do
+		test -n "$color" && color="${color};"
+		c="$(eval "shx_echo \$shx_${c}")"
+		color="${color}${c}"
+		
+	done
+	shx_echo "\e[${color}m"
+}
