@@ -6,24 +6,21 @@ set -e
 set -u
 
 . "$SHX_HOME/shx_string.sh"
+. "$SHX_HOME/shx_io.sh"
 . "$SHX_HOME/shx_log.sh"
+
+shx_priv_module_list=
 
 shx_require ()
 {
-	local vname
-	local value
-	local old_opts
-	old_opts="$(set +o)"
-	set +u
+	local f
 	for f in "$@"; do
-		vname="shx_${f}_loaded"
-		eval "value=\$$vname"
-		test "$f" = "$value" && continue
+		shx_priv_module_loaded "$f" && return 0
 		test -f "$SHX_HOME/shx_$f.sh" \
-		    || shx_fatal "shx: Module \"$f\" not found."
+		    || shx_fatalln 1 "shx: Module \"$f\" not found."
+		# Maybe NOT REACHED
 		. "$SHX_HOME/shx_$f.sh"
 	done
-	eval "$old_opts" 2>/dev/null
 }
 
 # Initialization function.  This function performs several tasks before
@@ -87,16 +84,22 @@ shx_init ()
 # instead.
 shx_exit () {
 	# Remove any enqueued files.
-	local old_opts
-	old_opts="$(set +o)"
-	set +u
-	if [ "$shx_atexit_loaded" = "yes" ]; then
+	if shx_priv_module_loaded 'atexit'; then
 		shx_atexit_rm_enqueued_files
 	fi
-	eval "$old_opts" 2>/dev/null
-
 	exit "$1"
 }
+
+# $1 -> Module to check if it is loaded.
+shx_priv_module_loaded ()
+{
+	local m
+	for m in $shx_priv_module_list; do
+		test "$m" = "$1" && return 0
+	done
+	return 1
+}
+
 
 # Traps for clear exit
 trap 'shx_exit 129' HUP

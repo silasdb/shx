@@ -21,14 +21,9 @@ shx_string_loaded="yes"
 # Inspired by: http://nxr.netbsd.org/xref/src/usr.sbin/postinstall/postinstall#shell_quote
 shx_quote ()
 {
-	local old_opts
-	old_opts="$(set +o)"
-	set +x
-	local q=''
-	local str
+	local q str
 	q="$(printf "%s" "$*" | sed "s/'/'\\\''/g")"
 	printf '%s' "'$q'"
-	eval "$old_opts" 2>/dev/null
 }
 
 # Prints the given field of a string.
@@ -54,15 +49,14 @@ shx_field ()
 		# TODO: we should check if it is positive too.
 		shx_is_decimal "$n" || return 1
 		# We need to set -f in order to prevent glob expansion when
-		# passing $@.
-		local old_opts
-		old_opts="$(set +o)"
+		# passing $@.  We use a subshell to not allow set -f affect
+		# external shell.
+		(
 		set -f
 		set -- $@
 		shift
 		eval "shx_echo \$$n"
-		# Return shell options back (revert set -f).
-		eval "$old_opts" 2>/dev/null
+		)
 	else
 		awk "{ print \$$1 }"
 	fi
