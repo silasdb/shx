@@ -5,6 +5,9 @@
 set -e
 set -u
 
+# Workarounds for different shell quirks.
+. "$SHX_HOME/shx_quirks.sh"
+
 . "$SHX_HOME/shx_string.sh"
 . "$SHX_HOME/shx_io.sh"
 . "$SHX_HOME/shx_log.sh"
