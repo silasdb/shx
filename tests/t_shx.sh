@@ -22,7 +22,7 @@ test_script ()
 	if [ "$2" = "pass" ]; then
 		sh "$file" || atf_fail "Script '$name' failed."
 	else
-		sh "$file" && atf_fail "Script '$name' should work!"
+		sh "$file" && atf_fail "Script '$name' should fail!"
 		return 0
 	fi
 }
