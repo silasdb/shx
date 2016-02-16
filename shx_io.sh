@@ -75,7 +75,7 @@ shx_echo_color ()
 shx_echoln_color ()
 {
 	shx_echo_color "$1" "$2"
-	shx_echoln
+	shx_echoln ""
 }
 
 
