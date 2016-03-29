@@ -44,6 +44,14 @@ basics_body ()
 		shx_require string io atexit
 		shx_require string io
 	EOF
+	test_script require4 fail <<-EOF
+		shx_require atexit
+		shx_priv_module_loaded log
+	EOF
+	test_script require5 pass <<-EOF
+		shx_require atexit
+		shx_priv_module_loaded atexit
+	EOF
 }
 
 atf_init_test_cases ()

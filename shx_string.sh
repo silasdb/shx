@@ -1,7 +1,5 @@
 #!/bin/sh
 
-shx_string_loaded="yes"
-
 # Quotes strings to avoid make them safer.  Specially for strings that will be
 # used in >eval< later.  The technique consists in replacing all single quotes
 # by the sequence "'\''" which means 1. close current string, 2. add a single

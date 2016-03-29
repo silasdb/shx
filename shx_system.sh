@@ -1,7 +1,5 @@
 #!/bin/sh
 
-shx_system_loaded="yes"
-
 shx_priv_md5cmd=
 
 # Checks if root is running the script. If it is not, outputs an error message

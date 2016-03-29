@@ -12,8 +12,13 @@ set -u
 . "$SHX_HOME/shx_io.sh"
 . "$SHX_HOME/shx_log.sh"
 
+# Used for shx_require and shx_priv_module_loaded functions.  Hold a list of
+# loaded modules.
 shx_priv_module_list=
 
+# Load a module if not loaded yet.
+#
+# $1 -> Name of the module.
 shx_require ()
 {
 	local f
@@ -23,8 +28,22 @@ shx_require ()
 		    || shx_fatalln 1 "shx: Module \"$f\" not found."
 		# Maybe NOT REACHED
 		. "$SHX_HOME/shx_$f.sh"
+		shx_priv_module_list="$shx_priv_module_list $f"
 	done
 }
+
+# Check if a module is loaded.
+#
+# $1 -> Module to check if it is loaded.
+shx_priv_module_loaded ()
+{
+	local m
+	for m in $shx_priv_module_list; do
+		test "$m" = "$1" && return 0
+	done
+	return 1
+}
+
 
 # Initialization function.  This function performs several tasks before
 # executing the script, so it can prepare environment for the upcoming code that
@@ -92,17 +111,6 @@ shx_exit () {
 	fi
 	exit "$1"
 }
-
-# $1 -> Module to check if it is loaded.
-shx_priv_module_loaded ()
-{
-	local m
-	for m in $shx_priv_module_list; do
-		test "$m" = "$1" && return 0
-	done
-	return 1
-}
-
 
 # Traps for clear exit
 trap 'shx_exit 129' HUP

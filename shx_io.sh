@@ -1,7 +1,5 @@
 #!/bin/sh
 
-shx_io_loaded="yes"
-
 # We do not use echo, but printf, which is more secure, since echo handles
 # escape characters and dashes in a way difficult to make sure it will always
 # work.  Check http://www.dwheeler.com/essays/filenames-in-shell.html for more

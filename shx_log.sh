@@ -1,7 +1,5 @@
 #!/bin/sh
 
-shx_log_loaded="yes"
-
 # TODO: add stuff to allow easy log to a file, if the user wants to.
 
 # Outputs a message to stderr and exit with error

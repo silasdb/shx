@@ -1,7 +1,5 @@
 #!/bin/sh
 
-shx_atexit_loaded="yes"
-
 # shx_atexit functions.
 #
 # The following shx_atexit functions and variables are used to register tasks to
