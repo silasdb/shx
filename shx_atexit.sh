@@ -53,7 +53,7 @@ shx_atexit_rm_enqueued_files ()
 
 		# If filename starts with dash, prepend "./" so rm later don't
 		# think it is a parameter.
-		(printf '%s' "$filepath" | grep -q '^-') \
+		expr "$filepath" : '^-' >/dev/null \
 		    && filepath="./$filepath"
 
 		test -d "$filepath" && rflag="r"
