@@ -52,7 +52,9 @@ shx_atexit_rm_enqueued_files ()
 		filepath="$(eval "shx_echo $vname")"
 
 		# If filename starts with dash, prepend "./" so rm later don't
-		# think it is a parameter.
+		# think it is a parameter.  See
+		# http://www.dwheeler.com/essays/filenames-in-shell.html
+		# item 2.1.6 for more information.
 		expr "$filepath" : '^-' >/dev/null \
 		    && filepath="./$filepath"
 
