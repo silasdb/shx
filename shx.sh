@@ -109,7 +109,21 @@ shx_exit () {
 	if shx_priv_module_loaded 'atexit'; then
 		shx_atexit_rm_enqueued_files
 	fi
+	local f
+	for f in "$shx_priv_cleanup_functions"; do
+		$f
+	done
 	exit "$1"
+}
+
+shx_priv_cleanup_functions=''
+# User defined cleanup function.  They are called whenever the program exits, no
+# matter if it it a normal exit or a trap.
+#
+# $1 -> Name of the function to be called.
+shx_cleanup_add ()
+{
+	shx_priv_cleanup_functions="$shx_priv_cleanup_functions $@"
 }
 
 # Traps for clear exit

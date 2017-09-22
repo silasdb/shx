@@ -53,7 +53,37 @@ basics_body ()
 	EOF
 }
 
+atf_test_case cleanup
+cleanup_head ()
+{
+	atf_set 'descr' 'Test shx cleanup functionality'
+}
+cleanup_body ()
+{
+	test_script cleanup1 fail <<-EOF
+		main () {
+			shx_cleanup_add cleanup
+			shx_exit 0
+		}
+		cleanup () {
+			exit 1
+		}
+		shx_init "\$@"
+	EOF
+	test_script cleanup2 pass <<-EOF
+		main () {
+			shx_cleanup_add cleanup
+			shx_exit 1
+		}
+		cleanup () {
+			exit 0
+		}
+		shx_init "\$@"
+	EOF
+}
+
 atf_init_test_cases ()
 {
 	atf_add_test_case basics
+	atf_add_test_case cleanup
 }
