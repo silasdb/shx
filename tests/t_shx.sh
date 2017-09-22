@@ -18,7 +18,6 @@ test_script ()
 		. $SHX_HOME/shx.sh
 	EOF
 	cat >> "$file"
-	cp "$file" /tmp/xxx
 	if [ "$2" = "pass" ]; then
 		sh "$file" || atf_fail "Script '$name' failed."
 	else
