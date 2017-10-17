@@ -12,6 +12,8 @@ set -u
 . "$SHX_HOME/shx_io.sh"
 . "$SHX_HOME/shx_log.sh"
 
+: ${SHX_MAIN:=main}
+
 # Used for shx_require and shx_priv_module_loaded functions.  Hold a list of
 # loaded modules.
 shx_priv_module_list=
@@ -96,7 +98,7 @@ shx_init ()
 	fi
 
 	# Call main script function.
-	eval "main $args"
+	eval "$SHX_MAIN $args"
 
 	shx_exit "$?"
 }
